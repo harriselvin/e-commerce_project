@@ -23,49 +23,81 @@ localStorage.setItem('items', JSON.stringify(items))
 
 let viewedItems = []
 
-items.forEach(function(item) {
-
-    product.innerHTML += `
-        <div class="items">
-            <div class="item">
-                <img class="product-img" src="${item.image}" alt="Product Info">
-                <h5 class="product-title">${item.name}</h5>
-                <h5 product-price>R ${(item.price).toFixed(2)}</h5>
-                <button class="view-more" value="${item.id}">View More</button>
+// Render items to the page
+function renderItems(filteredItems) {
+    items.innerHTML = ''
+    filteredItems.forEach(function(item) {
+    
+        product.innerHTML += `
+            <div class="items">
+                <div class="item">
+                    <img class="product-img" src="${item.image}" alt="Product Info">
+                    <h5 class="product-title">${item.name}</h5>
+                    <h5 product-price>R ${(item.price).toFixed(2)}</h5>
+                    <button class="view-more" value="${item.id}">View More</button>
+                </div>
             </div>
-        </div>
-    `
-})
-
-
-const viewMoreBtn = document.querySelectorAll('.view-more')
-
-viewMoreBtn.forEach(btn => {
-    btn.addEventListener('click', (event) => {
-        viewItem(event.target.value)
-        viewMoreBtn.innerHTML = window.location.href = '/HTML/item.html'
+        `
     })
-})
 
-function viewItem(id) {
-    let [item] = items.filter(object => object.id === +id)
-    viewedItems.push(item)
-    localStorage.setItem('viewedItems', JSON.stringify(viewedItems))
+    attachViewMore()
 }
+
+// Attached event to view more buttons
+function attachViewMore() {
+    const viewMoreBtn = document.querySelectorAll('.view-more')
+
+    viewMoreBtn.forEach(btn => {
+        btn.addEventListener('click', (event) => {
+            viewItem(event.target.value)
+            window.location.href = '/HTML/item.html'
+        })
+    })
+}
+
+renderItems(items)
+
+const sortItems = document.querySelectorAll('.sort-btn')
+
+// Sort items by name
+function sort() {
+    items.sort((a, b) => {
+        let nameA = a.name.toUpperCase()
+        let nameB = b.name.toUpperCase()
+
+        if (nameA < nameB) {
+            return -1
+        }
+        if (nameA > nameB) {
+            return 1
+        }
+
+        return 0
+    })
+
+    // Trigger the input event after setting  the value
+    searchInput.dispatchEvent(new Event('input'))
+}
+
+// View item and store in local storage
+function viewItem(id) {
+    let [item] = items.find(object => object.id === +id)
+    if (item) {
+        viewedItems.push(item)
+        localStorage.setItem('viewedItems', JSON.stringify(viewedItems))
+    }
+    }
 
 const searchBtn = document.querySelector('.search-btn')
 const searchInput = document.querySelector('.search-input')
 const categoryFilter = document.querySelectorAll('.category-btn')
 
+// Filter items by search input
 function filterItems() {
     let searchItem = searchInput.value.trim().toUpperCase()
     let filteredItems = items.filter(item => {
         return Object.values(item).some(value => typeof value === 'string' && value.toUpperCase().includes(searchItem))
         })
-        
-    // if (!filterItems.includes(searchItem)) {
-    //     alert('Item not found')
-    // }
 
     product.innerHTML = '';
 
@@ -83,10 +115,25 @@ function filterItems() {
     })
 }
 
+// Filter items by category
+function filterByCategory(category) {
+    let filteredItems = items.filter(item => item.category.toUpperCase() === category.toUpperCase());
+    renderItems(filteredItems);
+}
+
+// Attached event listeners to category buttons
 categoryFilter.forEach(item => {
-    item.addEventListener('click', (event) => {
-        alert('clicked!')
+    item.addEventListener('click', () => {
+        searchInput.value = item.innerHTML
+
+        // Trigger the input event after setting  the value
+        searchInput.dispatchEvent(new Event('input'))
     })
+})
+
+// Attach event listener to all sort buttons
+sortItems.forEach(btn => {
+    btn.addEventListener('click', sort)
 })
 
 searchBtn.addEventListener('click', filterItems)
