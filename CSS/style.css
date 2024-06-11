@@ -323,11 +323,14 @@ footer .company-links {
 
 .staff img {
     height: 40cqi;
+    border-radius: 50%;
 }
 
-.story-info .story-title, .heading {
+.story-info .story-title, .staff-heading {
     color: green;
 }
+
+/* Product Section */
 
 @media only screen and (min-width: 536px) and (max-width: 760px) {
     /* Home Section */
@@ -347,6 +350,8 @@ footer .company-links {
     .trading-times {
         order: 1;
     }
+
+    /* Product Section */
 }
 
 @media only screen and (min-width: 301px) and (max-width: 535px) {
@@ -396,6 +401,8 @@ footer .company-links {
     .staff {
         text-align: center;
     }
+
+    /* Product Section */
 }
 
 @media only screen and (max-width: 300px) {
@@ -454,4 +461,6 @@ footer .company-links {
     .services h4, p {
         text-align: center;
     }
+
+    /* Product Section */
 }
