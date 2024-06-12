@@ -1,8 +1,9 @@
 const itemBox = document.querySelector('.item-box')
 
-let listItems = JSON.parse(localStorage.getItem('viewedItems'))
+// Retrieve existing cart items from localStorage
+let purchasedItems = JSON.parse(localStorage.getItem('purchasedItems')) || []
 
-let purchasedItems = []
+let listItems = JSON.parse(localStorage.getItem('viewedItems')) || []
 
 listItems.forEach(product => {
     itemBox.innerHTML += `
@@ -32,10 +33,20 @@ purchase.forEach(btn => {
 
 // Purchase item and store in local storage
 function addToCart(id) {
-    let [item] = listItems.filter(object => object.id === +id)
-    purchasedItems.push(item)
-    swal("Item added to cart!", "You clicked the button!", "success");
-    localStorage.setItem('purchasedItems', JSON.stringify(purchasedItems))
-}
+    let [item] = listItems.filter(object => object.id === id)
 
-JSON.parse(localStorage.getItem('purchasedItems'))
+    // Check if the item is already in the cart
+    let existingItemIndex = purchasedItems.findIndex(existingItem => existingItem.id === item.id)
+
+    if (existingItemIndex !== -1) {
+        // If the item already exists, increase its quantity
+        purchasedItems[existingItemIndex].quantity += 1
+    } else {
+        // If the item does not exist, and it to the array
+        item.quantity = 1
+        purchasedItems.push(item)
+    }
+
+    localStorage.setItem('purchasedItems', JSON.stringify(purchasedItems))
+    swal("Item added to cart!", "You clicked the button!", "success");
+}

@@ -203,7 +203,11 @@ footer .company-links {
 }
 
 .copyright a, p {
-    font-size: clamp(.8em, 2vw, 1.3em);
+    font-size: clamp(1em, 2vw, 1.3em);
+}
+
+a, p {
+    font-size: clamp(1em, 2vw, 1.3em);
 }
 
 h3 {
@@ -487,7 +491,7 @@ h3 {
 }
 
 .cart-table {
-    margin: 0 auto;
+    margin: 0 auto 3em;
     box-shadow: .1em .1em .5em black;
     width: clamp(.1em, 90vw, 70em);
 }
@@ -522,12 +526,17 @@ h3 {
 
 .cart-table .remove {
     margin: 0 -10em;
+    cursor: pointer;
 }
 
 .total-info {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+}
+
+.remove-item, .increment, .decrement {
+    cursor: pointer;
 }
 
 @media only screen and (min-width: 536px) and (max-width: 760px) {
