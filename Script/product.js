@@ -7,7 +7,7 @@ function Product(id, name, image, category, description, quantity, price) {
     this.category = category
     this.description = description
     this.quantity = quantity
-    this.price = price
+    this.price = price.toLocaleString('en-US')
 }
 
 let item1 = new Product(1, 'Rolex Pearlmaster', '/Images/rolex_watch_1.jpg', 'luxury', 'The Pearlmaster is a sub-collection within the Datejust family dedicated to jewelry watches, only available in precious metals with the addition of diamonds or other gemstones and fitted with the dedicated "Pearlmaster" bracelet', 1, 845755.39)
@@ -33,7 +33,7 @@ function renderItems(filteredItems) {
                 <div class="item">
                     <img class="product-img" src="${item.image}" alt="Product Info">
                     <h5 class="product-title">${item.name}</h5>
-                    <h5 product-price>R ${(item.price).toFixed(2)}</h5>
+                    <h5 product-price>R ${item.price}</h5>
                     <button class="view-more" value="${item.id}">View More</button>
                 </div>
             </div>
@@ -58,6 +58,8 @@ function attachViewMore() {
 renderItems(items)
 
 const sortItems = document.querySelectorAll('.sort-btn')
+const sortUp = document.querySelectorAll('.sortAZ')
+const sortDown = document.querySelectorAll('.sortZA')
 
 // Sort items by name
 function sort() {
@@ -77,16 +79,64 @@ function sort() {
 
     // Trigger the input event after setting  the value
     searchInput.dispatchEvent(new Event('input'))
+
+    attachViewMore()
+}
+
+// A-Z sorting 
+function sortAZ() {
+    items.sort((a, b) => {
+        let nameA = a.name.toUpperCase()
+        let nameB = b.name.toUpperCase()
+
+        if (nameA < nameB) {
+            return -1
+        }
+        if (nameA > nameB) {
+            return 1
+        }
+
+        return 0
+    })
+
+    // Trigger the input event after setting  the value
+    searchInput.dispatchEvent(new Event('input'))
+
+    attachViewMore()
+}
+
+// Z-A sorting
+function sortZA() {
+    items.sort((a, b) => {
+        let nameA = a.name.toUpperCase()
+        let nameB = b.name.toUpperCase()
+
+        if (nameA > nameB) {
+            return -1
+        }
+        if (nameA < nameB) {
+            return 1
+        }
+
+        return 0
+    })
+
+    // Trigger the input event after setting  the value
+    searchInput.dispatchEvent(new Event('input'))
+
+    attachViewMore()
 }
 
 // View item and store in local storage
 function viewItem(id) {
-    let [item] = items.find(object => object.id === +id)
+    let [item] = items.filter(object => object.id === +id)
     if (item) {
         viewedItems.push(item)
         localStorage.setItem('viewedItems', JSON.stringify(viewedItems))
     }
-    }
+
+    attachViewMore()
+}
 
 const searchBtn = document.querySelector('.search-btn')
 const searchInput = document.querySelector('.search-input')
@@ -107,18 +157,26 @@ function filterItems() {
             <div class="item">
                 <img class="product-img" src="${item.image}" alt="Product Info">
                 <h5 class="product-title">${item.name}</h5>
-                <h5 product-price>R ${(item.price).toFixed(2)}</h5>
+                <h5 product-price>R ${(item.price)}</h5>
                 <button class="view-more" value="${item.id}">View More</button>
             </div>
         </div>
         `
     })
+
+    attachViewMore()
+    
+    // if (!searchInput.value.includes(searchItem)) {
+    //     alert('product not found')
+    // }
 }
 
 // Filter items by category
 function filterByCategory(category) {
     let filteredItems = items.filter(item => item.category.toUpperCase() === category.toUpperCase());
     renderItems(filteredItems);
+
+    attachViewMore()
 }
 
 // Attached event listeners to category buttons
@@ -132,8 +190,12 @@ categoryFilter.forEach(item => {
 })
 
 // Attach event listener to all sort buttons
-sortItems.forEach(btn => {
-    btn.addEventListener('click', sort)
+sortUp.forEach(btn => {
+    btn.addEventListener('click', sortAZ)
+})
+
+sortDown.forEach(btn => {
+    btn.addEventListener('click', sortZA)
 })
 
 searchBtn.addEventListener('click', filterItems)

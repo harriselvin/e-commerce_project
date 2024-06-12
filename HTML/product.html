@@ -87,7 +87,15 @@
                                 <button class="category-btn btn btn-outline-dark">Pocket</button>
                                 <button class="category-btn btn btn-outline-dark">Smart</button>
                                 <button class="category-btn btn btn-outline-dark">Sport</button>
-                                <button class="sort-btn btn btn-dark">Sort</button>
+                                <!-- <div class="dropdown"> -->
+                                  <button class="sort btn btn-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">Sort
+                                    <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item sortAZ" href="#">A-Z</a></li>
+                                      <li><a class="dropdown-item sortZA" href="#">Z-A</a></li>
+                                    </ul>
+                                  </button>
+                                  
+                                <!-- </div> -->
                             </div>
 
                             <div class="dropdown">
@@ -101,7 +109,15 @@
                                   <li><a class="dropdown-item category-btn" href="#">Smart</a></li>
                                   <li><a class="dropdown-item category-btn" href="#">Sport</a></li>
                                 </ul>
-                                <button class="btn sort-btn btn-outline-dark" type="button">Sort</button>
+                                <div class="dropdown">
+                                  <button class="btn sort-btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Sort
+                                  </button>
+                                  <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item sortAZ" href="#">A-Z</a></li>
+                                    <li><a class="dropdown-item sortZA" href="#">Z-A</a></li>
+                                  </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -139,7 +155,7 @@
                 </div>
                 <div class="footer-filter">
                     <h3>Categories</h3>
-                    <div class="cat category-btn"><span>Luxury</span></div>
+                    <div class="cat"><span class="category-btn">Luxury</span></div>
                     <div class="cat category-btn"><span>Fashion</span></div>
                     <div class="cat category-btn"><span>Smart</span></div>
                     <div class="cat category-btn"><span>Sport</span></div>
