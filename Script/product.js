@@ -19,6 +19,10 @@ let item6 = new Product(6, 'Garmin Fenix 7X Power Sapphire', '/Images/sport_watc
 
 let items = [item1, item2, item3, item4, item5, item6]
 
+let purchasedItems = JSON.parse(localStorage.getItem('purchasedItems'))
+
+console.log(purchasedItems);
+
 localStorage.setItem('items', JSON.stringify(items))
 
 let viewedItems = []
@@ -165,10 +169,6 @@ function filterItems() {
     })
 
     attachViewMore()
-    
-    // if (!searchInput.value.includes(searchItem)) {
-    //     alert('product not found')
-    // }
 }
 
 // Filter items by category
