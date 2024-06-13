@@ -7,7 +7,7 @@ function Product(id, name, image, category, description, quantity, price) {
     this.category = category
     this.description = description
     this.quantity = quantity
-    this.price = price.toLocaleString('en-US')
+    this.price = price.toFixed(2)
 }
 
 let item1 = new Product(1, 'Rolex Pearlmaster', '/Images/rolex_watch_1.jpg', 'luxury', 'The Pearlmaster is a sub-collection within the Datejust family dedicated to jewelry watches, only available in precious metals with the addition of diamonds or other gemstones and fitted with the dedicated "Pearlmaster" bracelet', 1, 845755.39)
@@ -20,8 +20,6 @@ let item6 = new Product(6, 'Garmin Fenix 7X Power Sapphire', '/Images/sport_watc
 let items = [item1, item2, item3, item4, item5, item6]
 
 let purchasedItems = JSON.parse(localStorage.getItem('purchasedItems'))
-
-console.log(purchasedItems);
 
 localStorage.setItem('items', JSON.stringify(items))
 
@@ -161,7 +159,7 @@ function filterItems() {
             <div class="item">
                 <img class="product-img" src="${item.image}" alt="Product Info">
                 <h5 class="product-title">${item.name}</h5>
-                <h5 product-price>R ${(item.price)}</h5>
+                <h5 product-price>R ${item.price}</h5>
                 <button class="view-more" value="${item.id}">View More</button>
             </div>
         </div>

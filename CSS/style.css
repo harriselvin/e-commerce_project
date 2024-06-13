@@ -490,6 +490,10 @@ h3 {
     align-items: center;
 }
 
+.cart-title .amount {
+    padding: 0 1cqi;
+}
+
 .cart-table {
     margin: 0 auto 3em;
     box-shadow: .1em .1em .5em black;
@@ -515,7 +519,7 @@ h3 {
 }
 
 .tbody-row img {
-    width: clamp(2em, 4vw, 4em);
+    width: clamp(2em, 6vw, 5em);
     border-radius: 50%;
     border: 2px solid blue;
 }
