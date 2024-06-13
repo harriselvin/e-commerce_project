@@ -18,6 +18,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth !important;
 }
 
 body {
@@ -522,6 +523,11 @@ h3 {
     width: clamp(2em, 6vw, 5em);
     border-radius: 50%;
     border: 2px solid blue;
+    object-fit: cover;
+}
+
+.tbody-row img:hover {
+    box-shadow: 0 0 .3cqi black;
 }
 
 .cart-table .name {
@@ -541,6 +547,76 @@ h3 {
 
 .remove-item, .increment, .decrement {
     cursor: pointer;
+}
+
+/* Admin Section */
+.admin-section {
+    margin: 4em 0 0;
+    overflow-x: hidden;
+}
+
+.search {
+    text-align: center;
+    margin: 0 0 2em;
+    transition: 2s;
+}
+
+.search input {
+    width: max(10em, 70vw, 5em);
+    height: clamp(2em, 7cqw, 3em);
+    border-radius: 2em;
+    padding: 0 2cqi;
+}
+
+.admin-table {
+    display: flex;
+    justify-content: center;
+}
+
+.admin-table tr:nth-child(2n) {
+    background-image: linear-gradient(to right,white ,lightblue 10% 90%, white);
+}
+
+.admin-table th {
+    border-bottom: 1px solid black;
+}
+
+.admin-table th, td{
+    padding: 0 clamp(.2em, 3.5vw, 20em);
+    text-align: center;
+    height: 3cqw;
+}
+
+.add-items {
+    text-align: center;
+    margin: 0 0 2cqi;
+}
+
+.add-items button {
+    width: 17cqi;
+    transition: .3s;
+}
+
+.add-items .add-btn {
+    border: 2px solid black;
+    border-radius: 0;
+    background-color: #F0F0F0;
+}
+
+.add-items button:hover {
+    background-color: #e3dede;
+}
+
+.add-items button:active {
+    scale: .95;
+}
+
+.modal-body .input {
+    padding: .5em;
+}
+
+.modal-body input {
+    width: 80%;
 }
 
 @media only screen and (min-width: 536px) and (max-width: 760px) {

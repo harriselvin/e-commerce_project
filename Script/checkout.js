@@ -52,7 +52,7 @@ function quantityCalc() {
     let quanAmount = 0
     purchasedItems.forEach(item => {
         quanAmount = item.quantity + quanAmount
-    })
+        })
     amount.textContent = quanAmount
 }
 
@@ -88,7 +88,6 @@ function removeAllItems() {
     purchasedItems = []
     localStorage.setItem('purchasedItems', JSON.stringify(purchasedItems))
     renderCartItem()
-    amount.innerText
 }
 
 // Attach event listeners for increment and decrement buttons 
