@@ -616,7 +616,12 @@ h3 {
 }
 
 .modal-body input {
-    width: 80%;
+    width: 100%;
+}
+
+.admin-row img {
+    height: clamp(2em, 10cqi, 5em);
+    /* width: 5em; */
 }
 
 @media only screen and (min-width: 536px) and (max-width: 760px) {
