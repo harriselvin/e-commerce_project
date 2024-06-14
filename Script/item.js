@@ -41,8 +41,9 @@ function addToCart(id) {
     if (existingItemIndex !== -1) {
         // If the item already exists, increase its quantity
         purchasedItems[existingItemIndex].quantity += 1
+        purchasedItems.quantity - 1
     } else {
-        // If the item does not exist, and it to the array
+        // If the item does not exist, add it to the array
         purchasedItems.push(item)
     }
 

@@ -40,6 +40,18 @@ body {
     font-size: clamp(.5em, 2vw, 2em);;
 }
 
+.logo img {
+    width: clamp(3em, 10vw, 4em);
+}
+
+.nav-logo img {
+    width: clamp(3em, 10vw, 4em);
+}
+
+.footer-logo img {
+    width: clamp(3em, 10vw, 4em)
+}
+
 .desktop-nav .links a {
     margin: 0 1em;
     padding: .5em;

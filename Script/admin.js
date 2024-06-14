@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const productQuantity = document.querySelector('.quantity');
   const productPrice = document.querySelector('.price');
   const productUpload = document.querySelector('.upload');
+  const productDescription = document.querySelector('.description');
   const addItems = document.querySelector('.add-item');
   const updateItems = document.querySelector('.update-item');
   const search = document.querySelector('.search')
@@ -21,6 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
     this.price = price;
   }
 
+  let items = []
+
+  // let minus = JSON.parse(localStorage.getItem('purchasedItems'))
+
+  // console.log(minus);
+
   // File upload handling
   function fileUpload(event) {
     const file = event.target.files[0];
@@ -36,18 +43,29 @@ document.addEventListener('DOMContentLoaded', () => {
   productUpload.addEventListener('change', fileUpload);
 
   // Initial product list
-  let items = JSON.parse(localStorage.getItem('items')) || [
+  let adminItems = items || [
     new Product(1, 'Sample Product', 'image/path.jpg', 'Category 1', 'Description', 10, 100)
   ];
 
+  // console.log(adminItems);
+
+  // Load items from local storage if available
+  function loadItemsFromLocalStorage() {
+    const storedItems = localStorage.getItem('adminItems');
+    if (storedItems) {
+      adminItems = JSON.parse(storedItems);
+    }
+    removeItem()
+  }
+
   // Save to localStorage
   function saveItems() {
-    localStorage.setItem('items', JSON.stringify(items));
+    localStorage.setItem('adminItems', JSON.stringify(adminItems));
   }
 
   function filterItems() {
     let searchItem = search.value.trim().toUpperCase()
-    let filteredItems = items.filter(item => {
+    let filteredItems = adminItems.filter(item => {
         return Object.values(item).some(value => typeof value === 'string' && value.toUpperCase().includes(searchItem))
         })
 
@@ -59,6 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <td><img src="${item.image}" alt="${item.name}"></td>
           <td>${item.name}</td>
           <td>${item.category}</td>
+          <td>${item.description}</td>
+          <td>${item.quantity}</td>
           <td>${item.price}</td>
           <td>
             <button class="btn btn-danger remove-item" data-id="${item.id}">
@@ -69,55 +89,80 @@ document.addEventListener('DOMContentLoaded', () => {
           </td>
         </tr>
         `
+
+        saveItems()
     })
   }
 
   // Function to add item
   function addItem() {
-    let id = items.length + 1;
-    let newItem = new Product(id, productName.value, productImageSrc, productCategory.value, 'Description', productQuantity.value, productPrice.value);
-    items.push(newItem);
+    let id = adminItems.length + 1;
+    let newItem = new Product(id, productName.value, productImageSrc, productCategory.value, productDescription.value, productQuantity.value, productPrice.value);
+    adminItems.push(newItem);
+    renderItems(adminItems);
     saveItems();
-    renderItems(items);
+
+    // console.log(newItem);
+    
+  }
+
+  function clearInput() {
+    productName.value = ''
+    productCategory.value = ''
+    productDescription.value = ''
+    productQuantity.value = ''
+    productPrice.value = ''
+    productUpload.value = ''
+  }
+
+  function submitItem() {
+    addItem()
+    clearInput()
   }
 
   // Function to edit item
-  function editItem(id) {
-    let item = items.find(item => item.id === id);
-    if (item) {
-      productName.value = item.name;
-      productCategory.value = item.category;
-      productQuantity.value = item.quantity;
-      productPrice.value = item.price;
-      productImageSrc = item.image;
-      document.querySelector('.edit-id').value = id;
-      document.querySelector('.add-item').style.display = 'none';
-      document.querySelector('.update-item').style.display = 'inline-block';
-    }
-  }
+  // function editItem(id) {
+  //   let item = adminItems.find(item => item.id === id);
+  //   if (item) {
+  //     productName.value = item.name;
+  //     productCategory.value = item.category;
+  //     productQuantity.value = item.quantity;
+  //     productPrice.value = item.price;
+  //     productImageSrc = item.image;
+  //     document.querySelector('.edit-id').value = id;
+  //     document.querySelector('.add-item').style.display = 'none';
+  //     document.querySelector('.update-item').style.display = 'inline-block';
+  //   }
+  // }
 
   // Update item in list
-  function updateItem() {
-    let id = parseInt(document.querySelector('.edit-id').value);
-    let item = items.find(item => item.id === id);
-    if (item) {
-      item.name = productName.value;
-      item.category = productCategory.value;
-      item.quantity = productQuantity.value;
-      item.price = productPrice.value;
-      item.image = productImageSrc;
-      saveItems();
-      renderItems(items);
-      document.querySelector('.add-item').style.display = 'inline-block';
-      document.querySelector('.update-item').style.display = 'none';
-    }
-  }
+  // function updateItem() {
+  //   let id = parseInt(document.querySelector('.edit-id').value);
+  //   let item = adminItems.find(item => item.id === id);
+
+  //   if (item) {
+  //     item.name = productName.value;
+  //     item.category = productCategory.value;
+  //     item.quantity = productQuantity.value;
+  //     item.description = productDescription.value;
+  //     item.price = productPrice.value;
+  //     item.image = productImageSrc;
+  //     renderItems(items);
+  //     saveItems();
+  //     document.querySelector('.add-item').style.display = 'inline-block';
+  //     document.querySelector('.update-item').style.display = 'none';
+
+  //     saveItems()
+  //   }
+  // }
 
   // Function to remove item
   function removeItem(id) {
-    items = items.filter(item => item.id !== id);
-    saveItems();
+    items = adminItems.filter(item => item.id !== id);
     renderItems(items);
+    saveItems();
+
+    console.log(items);
   }
 
   // Render items to the page
@@ -129,6 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <td><img src="${item.image}" alt="${item.name}"></td>
           <td>${item.name}</td>
           <td>${item.category}</td>
+          <td>${item.description}</td>
+          <td class="quantitySub">${item.quantity}</td>
           <td>${item.price}</td>
           <td>
             <button class="btn btn-danger remove-item" data-id="${item.id}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
@@ -137,6 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </td>
         </tr>
       `;
+      saveItems()
     });
 
     // <button class="btn btn-primary edit-item" data-id="${item.id}">Edit</button>
@@ -158,13 +206,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function removeItem(id) {
+    adminItems = adminItems.filter(product => product.id !== +id)
+    localStorage.setItem('adminItems', JSON.stringify(adminItems))
+  }
+
+  // const quantity = document.querySelector('.quantitySub')
+
+  // function decreaseQuan() {
+  //   let quanAmount = 0
+  //   adminItems.forEach(item => {
+  //     quanAmount = item.quantity += productQuantity.value
+  //       })
+  //   productQuantity.value = quanAmount
+
+  //   console.log(quanAmount);
+  // }
+
+  // decreaseQuan()
+
   // Initial render
-  renderItems(items);
-
-
+  loadItemsFromLocalStorage()
+  renderItems(adminItems);
 
   // Event listeners
   search.addEventListener('input', filterItems)
-  addItems.addEventListener('click', addItem);
-  updateItems.addEventListener('click', updateItem);
+  addItems.addEventListener('click', submitItem);
+  // updateItems.addEventListener('click', updateItem);
 })
