@@ -233,7 +233,7 @@ h3 {
 }
 
 .about-section .background {
-    background-image: url('/Images/craft_watch.jpg');
+    background-image: url('https://harriselvin.github.io/hostedImages/Images/craft_watch.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0 auto;
