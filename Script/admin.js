@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const productUpload = document.querySelector('.upload');
   const productDescription = document.querySelector('.description');
   const addItems = document.querySelector('.add-item');
-  const updateItems = document.querySelector('.update-item');
+  // const updateItems = document.querySelector('.update-item');
   const search = document.querySelector('.search')
   let productImageSrc = "";
 
@@ -190,12 +190,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // <button class="btn btn-primary edit-item" data-id="${item.id}">Edit</button>
 
     // Attach event listeners to edit buttons
-    document.querySelectorAll('.edit-item').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        let id = parseInt(e.target.getAttribute('data-id'));
-        editItem(id);
-      });
-    });
+    // document.querySelectorAll('.edit-item').forEach(btn => {
+    //   btn.addEventListener('click', (e) => {
+    //     let id = parseInt(e.target.getAttribute('data-id'));
+    //     editItem(id);
+    //   });
+    // });
 
     // Attach event listeners to remove buttons
     document.querySelectorAll('.remove-item').forEach(btn => {
