@@ -278,8 +278,8 @@ h3 {
 }
 
 .brand .brand-img img {
-    width: 40cqw;
-    border-radius: .5em;
+    width: clamp(10em, 40vw, 30em);
+    border-radius: 50%;
 }
 
 .trading-times {
@@ -301,10 +301,12 @@ h3 {
 .trading-times .time-img {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .trading-times .time-img img {
-    width: 40cqw;
+    width: clamp(10em, 40vw, 30em);
+    height: 30cqi;
     border-radius: .5em;
 }
 
@@ -455,6 +457,7 @@ h3 {
 .product-box .items img {
     height: 5em;
     width: 5em;
+    object-fit: cover;
 }
 
 /* Product Item */
@@ -633,7 +636,45 @@ h3 {
 
 .admin-row img {
     height: clamp(2em, 10cqi, 5em);
-    /* width: 5em; */
+}
+
+/* Contact Section */
+.contact-section {
+    margin: 4em 0 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.contact-section > * {
+    flex: 1;
+}
+
+.contact-section .form {
+    background-color: grey;
+    padding: 1em;
+}
+
+.contact-section form {
+    display: grid;
+    gap: 1em 0;
+}
+
+.contact-section .form input {
+    padding: .3em 0;
+}
+
+.contact-section .form button {
+    padding: .5em 0;
+}
+
+.contact-img {
+    display: flex;
+    justify-content: center;
+}
+
+.contact-img img {
+    height: 30cqw;
+    min-height: 18em;
 }
 
 @media only screen and (min-width: 536px) and (max-width: 760px) {
@@ -653,6 +694,11 @@ h3 {
     /* About Section */
     .trading-times {
         order: 1;
+    }
+
+    /* Contact Section */
+    .contact-img {
+        order: -1;
     }
 
 }
@@ -724,6 +770,11 @@ h3 {
         grid-area: 2;
     }
 
+    /* Contact Section */
+    .contact-img {
+        order: -1;
+    }
+
 }
 
 @media only screen and (max-width: 300px) {
@@ -788,5 +839,9 @@ h3 {
     .product-info {
         grid-area: 2;
     }
-    
+
+    /* Contact Section */
+    .contact-img {
+        order: -1;
+    }
 }
